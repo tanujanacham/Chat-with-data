@@ -643,6 +643,7 @@ app.get('/:path*', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+console.log('Finalizing routes and starting server...');
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is LIVE on port ${PORT} (host: 0.0.0.0)`);
 });
