@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Root orchestrator for Chat-with-data deployment",
     "scripts": {
-        "build": "npm ci --prefix backend --omit=dev",
+        "build": "npm install --prefix backend --production",
         "start": "node backend/server.js"
     },
     "engines": {
