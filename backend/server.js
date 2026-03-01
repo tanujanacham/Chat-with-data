@@ -13,8 +13,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Initialize Groq client
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-console.log('Groq client initialized with key ending in:', process.env.GROQ_API_KEY?.slice(-4));
+const groq = new Groq({ apiKey: (process.env.GROQ_API_KEY || "").trim() });
+console.log('Groq client initialized with sanitized key.');
 
 // Middleware
 app.use(cors());
