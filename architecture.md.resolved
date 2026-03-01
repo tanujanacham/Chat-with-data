@@ -1,0 +1,39 @@
+# Application Architecture Flowchart
+
+This flowchart outlines the "Agentic Data Analyst" pattern we discussed, showing how the user, the AI, and the database interact to provide fast, mathematically accurate answers from large CSV files.
+
+```mermaid
+sequenceDiagram
+    participant User as 🧑‍💻 User
+    participant UI as 🖥️ Next.js Frontend
+    participant API as ⚙️ Next.js API Route
+    participant LLM as 🧠 LLM (Groq/Gemini)
+    participant DB as 🦆 DuckDB (In-Memory)
+
+    %% Step 1: Upload
+    User->>UI: 1. Uploads CSV file (e.g., 10,000 rows)
+    UI->>DB: 2. Loads CSV into memory
+    DB-->>UI: 3. Returns Schema (Column Names) & 3 Sample Rows
+
+    %% Step 2: Question
+    User->>UI: 4. Asks: "What is the total revenue for Electronics?"
+    
+    %% Step 3: AI Code Generation
+    UI->>API: 5. Sends Question + Schema
+    API->>LLM: 6. Prompt: "Write SQL to answer this using these columns."
+    Note over LLM: LLM does NOT see the 10,000 rows.<br/>It only sees the column names.
+    LLM-->>API: 7. Returns SQL string: `SELECT SUM(revenue)...`
+
+    %% Step 4: Execution
+    API->>DB: 8. Executes SQL Query against 10,000 rows
+    Note over DB: DuckDB processes all data<br/>instantly and accurately.
+    DB-->>API: 9. Returns precise mathematical result (e.g., $1.2M)
+
+    %% Step 5: Synthesis & Chart Data
+    API->>LLM: 10. Prompt: "The answer is $1.2M. Format as chat text & chart JSON."
+    LLM-->>API: 11. Returns JSON: { text: "...", chartData: {...} }
+    
+    %% Step 6: Render
+    API-->>UI: 12. Sends JSON response
+    UI-->>User: 13. Displays Chat Bubble & Renders Chart
+```
