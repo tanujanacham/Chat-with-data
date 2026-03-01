@@ -639,7 +639,7 @@ app.get('/api/export/:sessionId', (req, res) => {
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 // Catch-all to serve React index.html
-app.get('/*', (req, res) => {
+app.get('/:path*', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
