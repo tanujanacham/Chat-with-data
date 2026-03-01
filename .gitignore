@@ -8,3 +8,4 @@ backend/public/uploads/*
 !backend/public/uploads/.gitkeep
 backend/tmp_test_transform.csv
 frontend/dist/
+!frontend/dist/
