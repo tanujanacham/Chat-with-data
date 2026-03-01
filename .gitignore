@@ -1,11 +1,10 @@
 node_modules/
 .env
-dist/
+# dist/  <-- Commented out to allow frontend/dist
 build/
 .DS_Store
 *.log
 backend/public/uploads/*
 !backend/public/uploads/.gitkeep
 backend/tmp_test_transform.csv
-frontend/dist/
-!frontend/dist/
+!frontend/dist/**
